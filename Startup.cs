@@ -38,6 +38,17 @@ namespace CoreWebApi
                 options.CookieHttpOnly = true;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             services.AddMultitenancy<AppTenant, AppTenantResolver>();
             services.AddOptions();
             services.Configure<MultitenancyOptions>(Configuration.GetSection("Multitenancy"));
@@ -49,6 +60,7 @@ namespace CoreWebApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors("AllowAll");
             app.UseMultitenancy<AppTenant>();
             app.UseSession();
             app.UseMvc();
