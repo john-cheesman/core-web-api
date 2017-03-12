@@ -1,4 +1,7 @@
 ﻿using System;
+using CoreWebApi.Models;
+using CoreWebApi.Options;
+using CoreWebApi.Resolvers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,6 +37,10 @@ namespace CoreWebApi
                 options.IdleTimeout = TimeSpan.FromMinutes(5);
                 options.CookieHttpOnly = true;
             });
+
+            services.AddMultitenancy<AppTenant, AppTenantResolver>();
+            services.AddOptions();
+            services.Configure<MultitenancyOptions>(Configuration.GetSection("Multitenancy"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +49,7 @@ namespace CoreWebApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseMultitenancy<AppTenant>();
             app.UseSession();
             app.UseMvc();
         }

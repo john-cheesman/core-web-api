@@ -1,21 +1,29 @@
-using CoreWebApi.Interfaces;
-
 namespace CoreWebApi.Models
 {
-    public class UserSession : IUserSession
+    public class UserSession
     {
-        private string _Id;
+        private string _id;
+        private AppTenant _tenant;
 
-        public UserSession(string Id)
+        public UserSession(string Id, AppTenant tenant)
         {
-            _Id = Id;
+            _id = Id;
+            _tenant = tenant;
         }
 
         public string Id
         {
             get
             {
-                return _Id;
+                return _id;
+            }
+        }
+
+        public AppTenant Tenant
+        {
+            get
+            {
+                return _tenant;
             }
         }
     }
