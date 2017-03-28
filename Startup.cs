@@ -35,7 +35,7 @@ namespace CoreWebApi
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(5);
-                options.CookieName = ".CoreWebApiSession"
+                options.CookieName = ".CoreWebApiSession";
                 options.CookieHttpOnly = true;
             });
 
