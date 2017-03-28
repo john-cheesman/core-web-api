@@ -17,6 +17,7 @@ namespace CoreWebApi
         [HttpGet]
         public UserSession Get()
         {
+            HttpContext.Response.Cookies.Append(".CoreWebApiSession", HttpContext.Session.Id);
             return new UserSession(HttpContext.Session.Id, _tenant);
         }
     }

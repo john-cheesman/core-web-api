@@ -36,7 +36,7 @@ namespace CoreWebApi
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(5);
                 options.CookieName = ".CoreWebApiSession";
-                options.CookieHttpOnly = false;
+                options.CookieHttpOnly = true;
             });
 
             services.AddCors(options =>
