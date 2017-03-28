@@ -15,10 +15,10 @@ namespace CoreWebApi
 
         // GET api/session
         [HttpGet]
-        public UserSession Get()
+        public IActionResult Get()
         {
             HttpContext.Response.Cookies.Append(".CoreWebApiSession", HttpContext.Session.Id);
-            return new UserSession(HttpContext.Session.Id, _tenant);
+            return new ObjectResult(new UserSession(HttpContext.Session.Id, _tenant));
         }
     }
 }
